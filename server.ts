@@ -1,7 +1,6 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { createServer as createViteServer } from "vite";
 import { db, client, isDatabaseConnected } from "./src/db";
 import { initDbTables } from "./src/db/init";
 import { busInfoTable, adminTable, bookingsTable, driversTable, tripsTable } from "./src/db/schema";
@@ -700,28 +699,22 @@ app.delete("/api/trips/:id", async (req, res) => {
   res.json({ success: true, message: "Trip deleted successfully." });
 });
 
-// --- VITE MIDDLEWARE SETUP ---
+// -------------------------
+// START SERVER
+// -------------------------
 async function startServer() {
-  // Initialize Cloud SQL PostgreSQL tables
-  await initDbTables();
+  try {
+    // Initialize PostgreSQL tables
+    await initDbTables();
 
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa"
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Navaladevi Bus Backend running on port ${PORT}`);
+      console.log(`🌐 Environment: ${process.env.NODE_ENV || "development"}`);
     });
-    app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+    process.exit(1);
   }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Navaladevi Bus Admin Server] Running at http://localhost:${PORT}`);
-  });
 }
 
 startServer();
