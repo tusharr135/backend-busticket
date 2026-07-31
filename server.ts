@@ -1,4 +1,5 @@
 import express from "express";
+const cors = require("cors");
 import path from "path";
 import fs from "fs";
 import { db, client, isDatabaseConnected } from "./src/db";
@@ -7,6 +8,12 @@ import { busInfoTable, adminTable, bookingsTable, driversTable, tripsTable } fro
 import { eq, desc } from "drizzle-orm";
 
 const app = express();
+app.use(
+  cors({
+    origin: "https://tusharr135.github.io",
+    credentials: true,
+  })
+);
 // const PORT = 5000;
 const PORT = Number(process.env.PORT) || 5000;
 const DB_DIR = path.join(process.cwd(), "data");
