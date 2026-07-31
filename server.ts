@@ -8,7 +8,8 @@ import { busInfoTable, adminTable, bookingsTable, driversTable, tripsTable } fro
 import { eq, desc } from "drizzle-orm";
 
 const app = express();
-const PORT = 5000;
+// const PORT = 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const DB_DIR = path.join(process.cwd(), "data");
 const DB_PATH = path.join(DB_DIR, "db.json");
 
