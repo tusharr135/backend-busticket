@@ -1,0 +1,20 @@
+{
+  "busInfo": {
+    "busName": "श्री नवलादेवी प्रसन्न",
+    "busNumber": "MH-48-BY-5115",
+    "driverName": "Shantaram Patil",
+    "driverPhone": "9876543210",
+    "conductorName": "Milind Raut",
+    "conductorPhone": "9123456789",
+    "capacity": 45
+  },
+  "admin": {
+    "username": "admin",
+    "password": "admin123",
+    "adminName": "Milind Raut",
+    "profilePhoto": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=150&h=150&q=80"
+  },
+  "bookings": [],
+  "drivers": [],
+  "trips": []
+}
